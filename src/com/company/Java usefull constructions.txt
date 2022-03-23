@@ -1,0 +1,108 @@
+
+   //How to use BufferReader
+    static {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            A = Integer.parseInt(br.readLine());
+            B = Integer.parseInt(br.readLine());
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //Unusual condition in while
+            FileInputStream fileInputStream1 = new FileInputStream(file1);
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream1);
+            int i;
+            while((i = bufferedInputStream.read())!= -1){
+                System.out.print((char)i);
+            }
+    //How to read the file string to string
+    String inputFileName = "C:\\Users\\nikita\\IdeaProjects\\untitled4\\src\\com\\company\\FileWith4Lines.txt";
+            try (BufferedReader reader = new BufferedReader(new FileReader(inputFileName))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    System.out.println(line + "\n");
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+    //Streams and buffer
+    public static void main(String[] args) throws Exception
+    {
+     FileInputStream inputStream = new FileInputStream("c:/data.txt");
+     FileOutputStream outputStream = new FileOutputStream("c:/result.txt");
+      byte[] buffer = new byte[1000];
+     while (inputStream.available() > 0)
+     {
+      int count = inputStream.read(buffer);
+      outputStream.write(buffer, 0, count);
+     }
+
+     inputStream.close(); /
+     outputStream.close();
+    }
+    //How to switch System.in
+        public static void main(String[] args) throws IOException
+        {
+            //кладем данные в строку
+            StringBuilder sb = new StringBuilder();
+            sb.append("Lena").append('\n');
+            sb.append("Olya").append('\n');
+            sb.append("Anya").append('\n');
+            String data = sb.toString();
+
+            //Оборачиваем строку в класс ByteArrayInputStream
+            InputStream is = new ByteArrayInputStream(data.getBytes());
+
+            //подменяем in
+            System.setIn(is);
+
+            //вызываем обычный метод, который не подозревает о наших манипуляциях
+            readAndPrintLine();
+        }
+
+        public static void readAndPrintLine() throws IOException
+        {
+            InputStreamReader isr = new InputStreamReader(System.in);
+            BufferedReader reader = new BufferedReader(isr);
+
+            while (true)
+            {
+                String line = reader.readLine();
+                if (line == null) break;
+                System.out.println(line);
+            }
+            reader.close();
+            isr.close();
+        }
+        //How to switch system.out
+        public static void main(String[] args) throws Exception
+        {
+         //запоминаем настоящий PrintStream в специальную переменную
+         PrintStream consoleStream = System.out;
+
+         //Создаем динамический массив
+         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+         //создаем адаптер к классу PrintStream
+         PrintStream stream = new PrintStream(outputStream);
+         //Устанавливаем его как текущий System.out
+         System.setOut(stream);
+
+         //Вызываем функцию, которая ничего не знает о наших манипуляциях
+         printSomething();
+
+         //Преобразовываем записанные в наш ByteArray данные в строку
+         String result = outputStream.toString();
+
+         //Возвращаем все как было
+         System.setOut(consoleStream);
+        }
+
+        public static void printSomething()
+        {
+         System.out.println("Hi");
+         System.out.println("My name is Amigo");
+         System.out.println("Bye-bye!");
+        }
